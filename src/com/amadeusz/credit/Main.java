@@ -4,6 +4,15 @@ import java.util.Scanner;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
+/*
+ * Main
+ *
+ * Version 1.1
+ *
+ * 2021-10-11
+ *
+ * Copyright AMADEUSZ_PL
+ */
 
 public class Main {
 
@@ -17,14 +26,20 @@ public class Main {
 
     private static void verifyUsingLuhnAlgorithm(String cardNumber) {
 
-        int verifySum = 0, secondNumberFromEnd = 0, miniSum = 0;
+        int verifySum = 0;
+        int secondNumberFromEnd = 0;
+        int miniSum = 0;
         Long cardNumberLong = Long.parseLong(cardNumber);
+
         for (int i = 0; i < cardNumber.length(); i += 2) {
-            secondNumberFromEnd = (int) ((cardNumberLong % 100 - cardNumberLong % 10) / 10);
-            miniSum = (secondNumberFromEnd * 2) / 10 + (secondNumberFromEnd * 2) % 10;
+            secondNumberFromEnd = (int) ((cardNumberLong % 100
+                    - cardNumberLong % 10) / 10);
+            miniSum = (secondNumberFromEnd * 2) / 10
+                    + (secondNumberFromEnd * 2) % 10;
             verifySum += miniSum + (int) (cardNumberLong % 10);
             cardNumberLong = (cardNumberLong - cardNumberLong % 100) / 100;
         }
+
         if (verifySum % 10 != 0) {
             System.out.println("This is not Credit Card number.");
             System.exit(1);
@@ -40,7 +55,8 @@ public class Main {
         do {
             System.out.println("Enter card number:");
             cardNumber = getCardNumber.nextLine();
-            if (cardNumber.length() < 13 || cardNumber.length() > 16 || !NumberUtils.isParsable(cardNumber)) {
+            if (cardNumber.length() < 13 || cardNumber.length() > 16
+                    || !NumberUtils.isParsable(cardNumber)) {
                 System.out.println("Not valid length.");
             } else {
                 validateInput = true;
@@ -49,5 +65,4 @@ public class Main {
 
         return cardNumber;
     }
-
 }

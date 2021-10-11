@@ -22,11 +22,15 @@ public enum CardType {
     public static CardType detect(String cardNumber) {
 
         for (CardType cardType : CardType.values()) {
-            if (null == cardType.pattern) continue;
-            if (cardType.pattern.matcher(cardNumber).matches()) return cardType;
+            if (cardType.hasMatchAndIsNotUnknown(cardNumber)){
+                return cardType;
+            }
         }
-
         return UNKNOWN;
+    }
+
+    private boolean hasMatchAndIsNotUnknown (String cardNumber){
+        return pattern != null && pattern.matcher(cardNumber).matches();
     }
 
 }
